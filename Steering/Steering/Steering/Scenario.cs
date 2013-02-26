@@ -31,13 +31,41 @@ namespace Steering
             Params.Load("flocking.properties");
             List<Entity> children = XNAGame.Instance().Children;
             
+
             // Create an EliteFighter instance to be the pursuer
-            
-            float range = Params.GetFloat("world_range");
-            Fighter fighter = null;
+                        
             // Create Params.GetFloat("num_boids") boids and turn on the appropriate steering behaviours..
             // use Vector3 pos = randomPosition(range); to generate random positions
             
+            Fighter bigFighter = new EliteFighter();
+            bigFighter.ModelName = "python";
+            bigFighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);
+            bigFighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.wander);
+            bigFighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.pursuit);
+            bigFighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.sphere_constrain);
+            bigFighter.scale = 10.0f;
+            children.Add(bigFighter);        
+
+            float range = Params.GetFloat("world_range");
+            Fighter fighter = null;
+            for (int i = 0; i < Params.GetFloat("num_boids"); i++)
+            {
+                Vector3 pos = randomPosition(range);
+                
+                fighter = new EliteFighter();
+                fighter.ModelName = "ferdelance";
+                fighter.pos = pos;
+                fighter.Target = bigFighter;
+                fighter.SteeringBehaviours.turnOffAll();
+                fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.separation);
+                fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.cohesion);
+                fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.alignment);
+                fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.wander);
+                fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.evade);
+                fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.sphere_constrain);
+                fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);
+                children.Add(fighter);                
+            }
 
             int numObstacles = 5;
             float dist = (range * 2) / numObstacles;
