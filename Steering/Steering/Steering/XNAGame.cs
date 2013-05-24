@@ -258,7 +258,7 @@ namespace Steering
         protected override void Draw(GameTime gameTime)
         {
             
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.LightGray);
             spriteBatch.Begin();
 
             // Allows the game to exit

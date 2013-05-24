@@ -96,7 +96,7 @@ namespace Steering
             steeringBehaviours = new SteeringBehaviours(this);
             drawAxis = false;
             Solid = true;
-            modelName = "fighter";
+            modelName = "boa";
         }
 
         public override void LoadContent() 

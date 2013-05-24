@@ -18,9 +18,11 @@ namespace Steering.Scenario
             Params.Load("default.properties");
             List<Entity> children = XNAGame.Instance.Children;
             Fighter leader = new Fighter();
+            leader.ModelName = "viper";
             leader.Position = new Vector3(10, 20, 20);            
             leader.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.arrive);
             leader.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);
+            leader.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.separation);
             leader.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.wall_avoidance);
             leader.TargetPos = new Vector3(0, 100, -450);
             children.Add(leader);
@@ -71,9 +73,11 @@ namespace Steering.Scenario
                     float z = (i - 1) * +zOff;
                     Fighter fleet = new Fighter();
                     fleet.Leader = leader;
+                    fleet.ModelName = "cobramk1";
                     fleet.offset = new Vector3((xOff * (-i / 2.0f)) + (j * xOff), 0, z);
                     fleet.Position = leader.Position + fleet.offset;
                     fleet.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.offset_pursuit);
+                    fleet.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.separation);
                     fleet.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.wall_avoidance);
                     fleet.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);
                     children.Add(fleet);

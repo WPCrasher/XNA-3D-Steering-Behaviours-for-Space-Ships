@@ -29,7 +29,6 @@ namespace Steering.Scenario
 
             List<Entity> children = XNAGame.Instance.Children;
             fighter = new Fighter();
-            fighter.ModelName = "fighter";
             fighter.Position = startPos;
             children.Add(fighter);
             Obstacle obstacle = new Obstacle(10);
@@ -73,8 +72,6 @@ namespace Steering.Scenario
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            base.Update(gameTime);
-
             KeyboardState newState = Keyboard.GetState();
             bool recalculate = false;
             if (newState.IsKeyDown(Keys.P))
@@ -85,6 +82,30 @@ namespace Steering.Scenario
                     recalculate = true;
                 }
             }
+            
+            if (newState.IsKeyDown(Keys.O))
+            {
+                if (!oldState.IsKeyDown(Keys.O))
+                {
+                    pathFinder.IsThreeD = !pathFinder.IsThreeD;
+                    recalculate = true;
+                }
+            }
+
+            MouseState mouseState = Mouse.GetState();
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                targetPos = XNAGame.Instance.Camera.Position + (XNAGame.Instance.Camera.Look * 100.0f);
+                targetPos.Y = 0;
+                recalculate = true;
+            }
+
+            if (mouseState.RightButton == ButtonState.Pressed)
+            {
+                targetPos = XNAGame.Instance.Camera.Position;
+                targetPos.Y = 0;
+                recalculate = true;
+            }
 
             if (recalculate)
             {
@@ -94,10 +115,22 @@ namespace Steering.Scenario
                 }
 
                 Path path = pathFinder.FindPath(startPos, targetPos);
+                if (path.Waypoints.Count == 0)
+                {
+                    fighter.SteeringBehaviours.turnOffAll();
+                }
+                else
+                {
+                    fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.follow_path);
+                }
                 fighter.Path = path;
                 fighter.Path.DrawPath = true;
                 fighter.Path.Next = 0;
             }
+
+
+            
+
             oldState = newState;
         }
 

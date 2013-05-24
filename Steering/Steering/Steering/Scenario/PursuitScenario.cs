@@ -23,7 +23,7 @@ namespace Steering.Scenario
             XNAGame.Instance.Ground = ground;
 
             Fighter fighter = new Fighter();
-            fighter.ModelName = "ship1";
+            fighter.ModelName = "cobramk1";
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.arrive);
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.wall_avoidance);
@@ -33,7 +33,7 @@ namespace Steering.Scenario
             children.Add(fighter);
 
             Fighter fighter1 = new Fighter();
-            fighter1.ModelName = "ship2";
+            fighter1.ModelName = "viper";
             fighter1.Target = fighter;
             fighter1.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.pursuit);
             fighter1.Position = new Vector3(-20, 20, -20);

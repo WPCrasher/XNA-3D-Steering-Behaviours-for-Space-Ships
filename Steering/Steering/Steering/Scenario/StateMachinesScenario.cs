@@ -22,13 +22,14 @@ namespace Steering.Scenario
             XNAGame.Instance.Ground = ground;
             AIFighter aiFighter = new AIFighter();
             aiFighter.Position = new Vector3(-20, 50, 50);
+            aiFighter.ModelName = "cobramk1";
             aiFighter.maxSpeed = 16.0f;
             aiFighter.SwicthState(new IdleState(aiFighter));
             aiFighter.Path.DrawPath = true;
             children.Add(aiFighter);
 
             Fighter fighter = new Fighter();
-            fighter.ModelName = "ship2";
+            fighter.ModelName = "viper";
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.arrive);
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.wall_avoidance);

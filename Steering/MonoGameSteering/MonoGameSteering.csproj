@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{10DD77D6-E753-48C8-925C-90B3615D295F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MonoGameSteering</RootNamespace>
+    <AssemblyName>MonoGameSteering</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\WindowsGL\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\WindowsGL\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Steering\Steering\AIFighter.cs">
+      <Link>AIFighter.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\AttackingState.cs">
+      <Link>AttackingState.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Camera.cs">
+      <Link>Camera.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Cell.cs">
+      <Link>Cell.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\EliteFighter.cs">
+      <Link>EliteFighter.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Entity.cs">
+      <Link>Entity.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Fighter.cs">
+      <Link>Fighter.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Ground.cs">
+      <Link>Ground.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\HelpScreen.cs">
+      <Link>HelpScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\IdleState.cs">
+      <Link>IdleState.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Lazer.cs">
+      <Link>Lazer.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Line.cs">
+      <Link>Line.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Node.cs">
+      <Link>Node.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Obstacle.cs">
+      <Link>Obstacle.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Params.cs">
+      <Link>Params.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Path.cs">
+      <Link>Path.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\PathFinder.cs">
+      <Link>PathFinder.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\PriorityQueue.cs">
+      <Link>PriorityQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Ray.cs">
+      <Link>Ray.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\ArriveScenario.cs">
+      <Link>Scenario\ArriveScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\FlockingScenario.cs">
+      <Link>Scenario\FlockingScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\ObstacleAvoidanceScenario.cs">
+      <Link>Scenario\ObstacleAvoidanceScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\PathFindingScenario.cs">
+      <Link>Scenario\PathFindingScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\PursuitScenario.cs">
+      <Link>Scenario\PursuitScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\Scenario.cs">
+      <Link>Scenario\Scenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\SeekScenario.cs">
+      <Link>Scenario\SeekScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\StateMachinesScenario.cs">
+      <Link>Scenario\StateMachinesScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Scenario\WanderScenario.cs">
+      <Link>Scenario\WanderScenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\SkySphere.cs">
+      <Link>SkySphere.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Space.cs">
+      <Link>Space.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Sphere.cs">
+      <Link>Sphere.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\State.cs">
+      <Link>State.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\SteeringBehavoiurs.cs">
+      <Link>SteeringBehavoiurs.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\Utilities.cs">
+      <Link>Utilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Steering\Steering\XNAGame.cs">
+      <Link>XNAGame.cs</Link>
+    </Compile>
+    <Compile Include="Game1.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Tao.Sdl">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\Tao.Sdl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\Assemblies\WindowsGL\SDL.dll">
+      <Link>SDL.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\Game.ico">
+      <Link>Game.ico</Link>
+    </Content>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\138.xnb">
+      <Link>Content\138.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\adder.xnb">
+      <Link>Content\adder.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\anaconda.xnb">
+      <Link>Content\anaconda.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\asp.xnb">
+      <Link>Content\asp.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\boa.xnb">
+      <Link>Content\boa.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\cobramk1.xnb">
+      <Link>Content\cobramk1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\cobramk3.xnb">
+      <Link>Content\cobramk3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\coriolis.xnb">
+      <Link>Content\coriolis.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\ferdelance.xnb">
+      <Link>Content\ferdelance.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\gecko.xnb">
+      <Link>Content\gecko.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\Ground.xnb">
+      <Link>Content\Ground.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\krait.xnb">
+      <Link>Content\krait.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\marimba.xnb">
+      <Link>Content\marimba.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\monkey.xnb">
+      <Link>Content\monkey.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\moray.xnb">
+      <Link>Content\moray.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\python.xnb">
+      <Link>Content\python.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\shuttle.xnb">
+      <Link>Content\shuttle.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\sidewinder.xnb">
+      <Link>Content\sidewinder.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\sphere.xnb">
+      <Link>Content\sphere.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\thargoid.xnb">
+      <Link>Content\thargoid.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\transporter.xnb">
+      <Link>Content\transporter.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\Verdana.xnb">
+      <Link>Content\Verdana.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Steering\Steering\bin\x86\Debug\Content\viper.xnb">
+      <Link>Content\viper.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="default.properties" />
+    <None Include="flocking.properties" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

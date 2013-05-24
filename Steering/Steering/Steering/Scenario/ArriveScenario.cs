@@ -18,6 +18,7 @@ namespace Steering.Scenario
             Params.Load("default.properties");
             List<Entity> children = XNAGame.Instance.Children;
             Fighter leader = new Fighter();
+            leader.ModelName = "boa";
             leader.Position = new Vector3(-10, 20, 20);
             leader.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.arrive);
             leader.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);

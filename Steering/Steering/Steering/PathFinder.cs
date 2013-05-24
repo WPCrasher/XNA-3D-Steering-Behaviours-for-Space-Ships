@@ -17,13 +17,20 @@ namespace Steering
 
     class PathFinder
     {
+        bool isThreeD;
+        
+        public bool IsThreeD
+        {
+          get { return isThreeD; }
+          set { isThreeD = value; }
+        }
+
         Dictionary<Vector3, Node> open = new Dictionary<Vector3, Node>();
         PriorityQueue<Node> openPQ = new PriorityQueue<Node>();
 
         Dictionary<Vector3, Node> closed = new Dictionary<Vector3, Node>();
 
         Vector3 start, end;
-        Model sphere;
 
         bool smooth = false;
 
@@ -52,10 +59,10 @@ namespace Steering
             Node current = first;
             while (open.Count > 0)
             {
-
-                //current = openPQ.Dequeue();
-                //float min = current.f;
-
+                /*
+                current = openPQ.Dequeue();
+                float min = current.f;
+                */
                 
                 // Get the top of the q
                 float min = float.MaxValue;
@@ -103,52 +110,152 @@ namespace Steering
             pos.X = current.pos.X;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z + 1;
-            addIfValid(pos, current);
+            AddIfValid(pos, current);
 
             // Forwards right
             pos.X = current.pos.X + 1;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z + 1;
-            addIfValid(pos, current);
+            AddIfValid(pos, current);
 
             // Right
             pos.X = current.pos.X + 1;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z;
-            addIfValid(pos, current);
+            AddIfValid(pos, current);
 
             // Backwards Right
             pos.X = current.pos.X + 1;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z - 1;
-            addIfValid(pos, current);
+            AddIfValid(pos, current);
 
             // Backwards
             pos.X = current.pos.X;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z - 1;
-            addIfValid(pos, current);
+            AddIfValid(pos, current);
 
             // Backwards Left
             pos.X = current.pos.X - 1;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z - 1;
-            addIfValid(pos, current);
+            AddIfValid(pos, current);
 
             // Left
             pos.X = current.pos.X - 1;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z;
-            addIfValid(pos, current);
+            AddIfValid(pos, current);
 
             // Forwards Left
             pos.X = current.pos.X - 1;
             pos.Y = current.pos.Y;
             pos.Z = current.pos.Z + 1;
-            addIfValid(pos, current); 
+            AddIfValid(pos, current);
+
+            if (isThreeD)
+            {
+                // Above in front row
+                pos.X = current.pos.X - 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z - 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z - 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X + 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z - 1;
+                AddIfValid(pos, current);
+
+                // Above middle row
+                pos.X = current.pos.X - 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X + 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z;
+                AddIfValid(pos, current);
+
+                // Above back row
+                pos.X = current.pos.X - 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z + 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z + 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X + 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z + 1;
+                AddIfValid(pos, current);
+
+                // Above in front row
+                pos.X = current.pos.X - 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z - 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z - 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X + 1;
+                pos.Y = current.pos.Y + 1;
+                pos.Z = current.pos.Z - 1;
+                AddIfValid(pos, current);
+
+                // Below middle row
+                pos.X = current.pos.X - 1;
+                pos.Y = current.pos.Y - 1;
+                pos.Z = current.pos.Z;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X;
+                pos.Y = current.pos.Y - 1;
+                pos.Z = current.pos.Z;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X + 1;
+                pos.Y = current.pos.Y - 1;
+                pos.Z = current.pos.Z;
+                AddIfValid(pos, current);
+
+                // Below back row
+                pos.X = current.pos.X - 1;
+                pos.Y = current.pos.Y - 1;
+                pos.Z = current.pos.Z + 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X;
+                pos.Y = current.pos.Y - 1;
+                pos.Z = current.pos.Z + 1;
+                AddIfValid(pos, current);
+
+                pos.X = current.pos.X + 1;
+                pos.Y = current.pos.Y - 1;
+                pos.Z = current.pos.Z + 1;
+                AddIfValid(pos, current);
+            }
+
         }
 
-        private bool isNavigable(Vector3 pos)
+        private bool IsNavigable(Vector3 pos)
         {
             foreach (Entity entity in XNAGame.Instance.Children)
             {
@@ -164,10 +271,10 @@ namespace Steering
             return true;
         }
 
-        private void addIfValid(Vector3 pos, Node parent)
+        private void AddIfValid(Vector3 pos, Node parent)
         {
 	
-	        if ((isNavigable(pos)))
+	        if ((IsNavigable(pos)))
 	        {		
 		        if (!closed.ContainsKey(pos)) 			
 		        {			        
@@ -179,7 +286,7 @@ namespace Steering
 				        node.h = heuristic(pos, end);
 				        node.f = node.g + node.h;
 				        node.parent = parent;
-                        openPQ.Enqueue(node);
+                        //openPQ.Enqueue(node);
 				        open[pos] = node;
 			        }		
 			        else 
