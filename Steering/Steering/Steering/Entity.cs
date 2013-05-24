@@ -69,16 +69,16 @@ namespace Steering
         }
 
         public Model model = null;
-        public Vector3 pos = Vector3.Zero;
+        public Vector3 Position = Vector3.Zero;
         
         public Vector3 velocity = Vector3.Zero;
         public Quaternion quaternion;
        
         static Random randomize = new Random();
         
-        public Vector3 right = new Vector3(1.0f, 0.0f, 0.0f);
-        public Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
-        public Vector3 look = new Vector3(0, 0, -1);
+        public Vector3 Right = new Vector3(1.0f, 0.0f, 0.0f);
+        public Vector3 Up = new Vector3(0.0f, 1.0f, 0.0f);
+        public Vector3 Look = new Vector3(0, 0, -1);
         public Vector3 basis = new Vector3(0, 0, -1);
         public Vector3 globalUp = new Vector3(0, 0, 1);
 
@@ -104,39 +104,39 @@ namespace Steering
         public void yaw(float angle)
         {
             Matrix T = Matrix.CreateRotationY(angle);
-            right = Vector3.Transform(right, T);
-            look = Vector3.Transform(look, T);
+            Right = Vector3.Transform(Right, T);
+            Look = Vector3.Transform(Look, T);
         }
 
         public void pitch(float angle)
         {
-            Matrix T = Matrix.CreateFromAxisAngle(right, angle);
+            Matrix T = Matrix.CreateFromAxisAngle(Right, angle);
             //_up = Vector3.Transform(_up, T);
-            look = Vector3.Transform(look, T);
+            Look = Vector3.Transform(Look, T);
         }
 
         public void walk(float timeDelta)
         {
             float speed = 5.0f;
-            pos += look * timeDelta * speed ;
+            Position += Look * timeDelta * speed ;
 
         }
 
         public void strafe(float timeDelta)
         {
             float speed = 5.0f;
-            pos += right * timeDelta * speed;
+            Position += Right * timeDelta * speed;
         }
 
         public float getYaw()
         {
-            Vector3 localLook = look;
+            Vector3 localLook = Look;
             localLook.Y = basis.Y;
             localLook.Normalize();
             SteeringBehaviours.checkNaN(ref localLook, Vector3.Forward);
             float angle = (float)Math.Acos(Vector3.Dot(basis, localLook));
 
-            if (look.X > 0)
+            if (Look.X > 0)
             {
                 angle = (MathHelper.Pi * 2.0f) - angle;
             }
@@ -146,19 +146,19 @@ namespace Steering
 
         public float getPitch()
         {
-            if (look.Y == basis.Y)
+            if (Look.Y == basis.Y)
             {
                 return 0;
             }
-            Vector3 localBasis = new Vector3(look.X, 0, look.Z);
+            Vector3 localBasis = new Vector3(Look.X, 0, Look.Z);
             localBasis.Normalize();
-            float dot = Vector3.Dot(localBasis, look);
+            float dot = Vector3.Dot(localBasis, Look);
             float angle = (float)Math.Acos(dot);
             if (float.IsNaN(angle))
             {
                 return 0.0f;
             }
-            if (look.Y < 0)
+            if (Look.Y < 0)
             {
                 angle = (MathHelper.Pi * 2.0f) - angle;
             }

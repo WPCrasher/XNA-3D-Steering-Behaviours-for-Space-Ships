@@ -31,14 +31,14 @@ namespace Steering
         public override void LoadContent()
         {
 
-            SkySphereModel = XNAGame.Instance().Content.Load<Model>("SkySphere/SphereHighPoly");
-            TextureCube SkySphereTexture = XNAGame.Instance().Content.Load<TextureCube>("SkySphere/SkySphereTexture");
-            SkySphereEffect = XNAGame.Instance().Content.Load<Effect>("SkySphere");
-            SkySphereEffect.Parameters["ViewMatrix"].SetValue(XNAGame.Instance().Camera.view);
-            SkySphereEffect.Parameters["ProjectionMatrix"].SetValue(XNAGame.Instance().Camera.projection);
+            SkySphereModel = XNAGame.Instance.Content.Load<Model>("SkySphere/SphereHighPoly");
+            TextureCube SkySphereTexture = XNAGame.Instance.Content.Load<TextureCube>("SkySphere/SkySphereTexture");
+            SkySphereEffect = XNAGame.Instance.Content.Load<Effect>("SkySphere");
+            SkySphereEffect.Parameters["ViewMatrix"].SetValue(XNAGame.Instance.Camera.view);
+            SkySphereEffect.Parameters["ProjectionMatrix"].SetValue(XNAGame.Instance.Camera.projection);
             SkySphereEffect.Parameters["SkyboxTexture"].SetValue(SkySphereTexture);
 
-            SkySphereEffect = XNAGame.Instance().Content.Load<Effect>("SkySphere");
+            SkySphereEffect = XNAGame.Instance.Content.Load<Effect>("SkySphere");
 
             foreach (ModelMesh mesh in SkySphereModel.Meshes)
             {
@@ -51,12 +51,12 @@ namespace Steering
 
         public override void Draw(GameTime gameTime)
         {
-            SkySphereEffect.Parameters["ViewMatrix"].SetValue(XNAGame.Instance().Camera.view);
-            SkySphereEffect.Parameters["ProjectionMatrix"].SetValue(XNAGame.Instance().Camera.projection);
+            SkySphereEffect.Parameters["ViewMatrix"].SetValue(XNAGame.Instance.Camera.view);
+            SkySphereEffect.Parameters["ProjectionMatrix"].SetValue(XNAGame.Instance.Camera.projection);
 
             DepthStencilState dss = new DepthStencilState();
             dss.DepthBufferEnable = false;
-            XNAGame.Instance().GraphicsDevice.DepthStencilState = dss;
+            XNAGame.Instance.GraphicsDevice.DepthStencilState = dss;
             foreach (ModelMesh mesh in SkySphereModel.Meshes)
             {
 
@@ -65,7 +65,7 @@ namespace Steering
 
             dss = new DepthStencilState();
             dss.DepthBufferEnable = true;
-            XNAGame.Instance().GraphicsDevice.DepthStencilState = dss;
+            XNAGame.Instance.GraphicsDevice.DepthStencilState = dss;
         }
     }
 }

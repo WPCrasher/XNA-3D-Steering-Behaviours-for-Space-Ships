@@ -30,7 +30,7 @@ namespace Steering
         }
         public override void LoadContent()
         {
-            model = XNAGame.Instance().Content.Load<Model>("sphere");
+            model = XNAGame.Instance.Content.Load<Model>("sphere");
         }
 
         public override void UnloadContent()
@@ -45,7 +45,7 @@ namespace Steering
         public override void Draw(GameTime gameTime)
         {
            
-            worldTransform = Matrix.CreateScale(radius) * Matrix.CreateTranslation(pos);
+            worldTransform = Matrix.CreateScale(radius) * Matrix.CreateTranslation(Position);
 
 
             
@@ -62,8 +62,8 @@ namespace Steering
                             effect.PreferPerPixelLighting = true;
                             effect.World = worldTransform;
                             effect.DiffuseColor = Color;
-                            effect.Projection = XNAGame.Instance().Camera.getProjection();
-                            effect.View = XNAGame.Instance().Camera.getView();
+                            effect.Projection = XNAGame.Instance.Camera.getProjection();
+                            effect.View = XNAGame.Instance.Camera.getView();
                         }
                         mesh.Draw();
                     }
@@ -75,7 +75,7 @@ namespace Steering
         {
             // Calculate p0-c call it v
 
-            Vector3 v = ray.pos - pos;
+            Vector3 v = ray.pos - Position;
             Vector3 p0 = Vector3.Zero, p1 = Vector3.Zero;
 
             // Now calculate a, b and c

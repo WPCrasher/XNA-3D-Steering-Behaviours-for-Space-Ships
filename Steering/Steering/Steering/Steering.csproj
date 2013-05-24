@@ -115,6 +115,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="Fighter.cs" />
     <Compile Include="Ground.cs" />
+    <Compile Include="HelpScreen.cs" />
     <Compile Include="IdleState.cs" />
     <Compile Include="Lazer.cs" />
     <Compile Include="Line.cs" />
@@ -127,7 +128,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Ray.cs" />
-    <Compile Include="Scenario.cs" />
+    <Compile Include="Scenario\ArriveScenario.cs" />
+    <Compile Include="Scenario\FlockingScenario.cs" />
+    <Compile Include="Scenario\ObstacleAvoidanceScenario.cs" />
+    <Compile Include="Scenario\PathFindingScenario.cs" />
+    <Compile Include="Scenario\PursuitScenario.cs" />
+    <Compile Include="Scenario\Scenario.cs" />
+    <Compile Include="Scenario\SeekScenario.cs" />
+    <Compile Include="Scenario\StateMachinesScenario.cs" />
+    <Compile Include="Scenario\WanderScenario.cs" />
     <Compile Include="SkySphere.cs" />
     <Compile Include="Space.cs" />
     <Compile Include="Sphere.cs" />
@@ -175,7 +184,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="avoidance.properties" />
+    <None Include="default.properties" />
     <None Include="flocking.properties" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

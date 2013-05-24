@@ -25,7 +25,15 @@ namespace Steering
         Vector3 start, end;
         Model sphere;
 
-        public Path findPath(Vector3 start, Vector3 end)
+        bool smooth = false;
+
+        public bool Smooth
+        {
+            get { return smooth; }
+            set { smooth = value; }
+        }
+
+        public Path FindPath(Vector3 start, Vector3 end)
         {
             long oldNow = DateTime.Now.Ticks;
             bool found = false;
@@ -45,10 +53,10 @@ namespace Steering
             while (open.Count > 0)
             {
 
-                current = openPQ.Dequeue();
-                float min = current.f;
+                //current = openPQ.Dequeue();
+                //float min = current.f;
 
-                /*
+                
                 // Get the top of the q
                 float min = float.MaxValue;
                 foreach (Node node in open.Values)
@@ -59,7 +67,7 @@ namespace Steering
                         min = node.f;
                     }                    
                 }
-                */
+                
                 if (current.pos.Equals(this.end))
                 {
                     found = true;
@@ -81,7 +89,10 @@ namespace Steering
             }
             long elapsed = DateTime.Now.Ticks - oldNow;
             System.Console.WriteLine("A * took: " + (elapsed / 10000) + " milliseconds");
-            SmoothPath(path);
+            if (smooth)
+            {
+                SmoothPath(path);
+            }
             return path;
         }
 
@@ -139,7 +150,7 @@ namespace Steering
 
         private bool isNavigable(Vector3 pos)
         {
-            foreach (Entity entity in XNAGame.Instance().Children)
+            foreach (Entity entity in XNAGame.Instance.Children)
             {
                 if (entity is Obstacle)
                 {
@@ -199,7 +210,6 @@ namespace Steering
             int current;
             int middle;
             int last;
-            int temp;
 
             current = 0;
             middle = current + 1;
@@ -241,7 +251,7 @@ namespace Steering
 
         private bool RayTrace(Vector3 point0, Vector3 point1)
         {
-            List<Entity> list = XNAGame.Instance().Children;
+            List<Entity> list = XNAGame.Instance.Children;
             foreach (Entity entity in list)
             {
                 if (entity is Obstacle)

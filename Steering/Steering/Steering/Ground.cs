@@ -24,7 +24,7 @@ namespace Steering
 
         public Ground()
         {
-            graphics = XNAGame.Instance().GraphicsDeviceManager;
+            graphics = XNAGame.Instance.GraphicsDeviceManager;
             //Content.RootDirectory = "Content";
             //TargetElapsedTime = TimeSpan.FromSeconds(1 / 30.0);
         }
@@ -47,7 +47,7 @@ namespace Steering
                 new VertexPositionTexture(new Vector3(width, 0, -height), new Vector2(twidth, 0))
             };
 
-            Texture2D portrait = XNAGame.Instance().Content.Load<Texture2D>("Ground");
+            Texture2D portrait = XNAGame.Instance.Content.Load<Texture2D>("Ground");
             float aspectRatio = graphics.GraphicsDevice.Viewport.AspectRatio;
 
             basicEffect = new BasicEffect(graphics.GraphicsDevice);
@@ -61,8 +61,8 @@ namespace Steering
         {
 
             basicEffect.World = Matrix.Identity;
-            basicEffect.Projection = XNAGame.Instance().Camera.projection;
-            basicEffect.View = XNAGame.Instance().Camera.view;
+            basicEffect.Projection = XNAGame.Instance.Camera.projection;
+            basicEffect.View = XNAGame.Instance.Camera.view;
                 /*View = Matrix.CreateLookAt
                                 (new Vector3(0, 0, 5), Vector3.Zero, Vector3.Up),
                 Projection = Matrix.CreatePerspectiveFieldOfView
@@ -129,7 +129,7 @@ namespace Steering
             globalUp = new Vector3(0, 0, 1);
 
             pointList = new VertexPositionTexture[points];
-            basicEffect = new BasicEffect(XNAGame.Instance().GraphicsDevice);
+            basicEffect = new BasicEffect(XNAGame.Instance.GraphicsDevice);
             basicEffect.VertexColorEnabled = true;
 
             pointList = new VertexPositionTexture[]
@@ -152,7 +152,7 @@ namespace Steering
 
         public override void LoadContent()
         {
-            groundTexture = XNAGame.Instance().Content.Load<Texture2D>("ground");
+            groundTexture = XNAGame.Instance.Content.Load<Texture2D>("ground");
         }
 
         public override void UnloadContent()
@@ -167,15 +167,15 @@ namespace Steering
         public override void Draw(GameTime gameTime)
         {
             basicEffect.World = Matrix.Identity;
-            basicEffect.View = XNAGame.Instance().Camera.getView();
-            basicEffect.Projection = XNAGame.Instance().Camera.getProjection();
+            basicEffect.View = XNAGame.Instance.Camera.getView();
+            basicEffect.Projection = XNAGame.Instance.Camera.getProjection();
             basicEffect.Texture = groundTexture;
             basicEffect.TextureEnabled = true;
-            XNAGame.Instance().GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
+            XNAGame.Instance.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
 
             EffectPass effectPass = basicEffect.CurrentTechnique.Passes[0];
             effectPass.Apply();
-            XNAGame.Instance().GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, pointList, 0, pointList.Length - 2);
+            XNAGame.Instance.GraphicsDevice.DrawUserPrimitives<VertexPositionTexture>(PrimitiveType.TriangleStrip, pointList, 0, pointList.Length - 2);
             
             
         }

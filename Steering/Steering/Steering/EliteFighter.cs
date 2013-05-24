@@ -16,11 +16,11 @@ namespace Steering
         {
             //ModelName = models[random.Next() % models.Count()];
             ModelName = models[3];
-            look = new Vector3(SteeringBehaviours.RandomClamped()
+            Look = new Vector3(SteeringBehaviours.RandomClamped()
                  , SteeringBehaviours.RandomClamped()
                 , SteeringBehaviours.RandomClamped()
                 );
-            look.Normalize();
+            Look.Normalize();
 
         }
     }

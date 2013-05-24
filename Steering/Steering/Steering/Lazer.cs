@@ -25,20 +25,20 @@ namespace Steering
 
         public override void Update(GameTime gameTime)
         {
-            float width = XNAGame.Instance().Ground.width;
-            float height = XNAGame.Instance().Ground.height;
+            float width = XNAGame.Instance.Ground.width;
+            float height = XNAGame.Instance.Ground.height;
             float speed = 5.0f;
             float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if ((pos.X < - (width / 2)) || (pos.X > width / 2) || (pos.Z < - (height / 2)) || (pos.Z > height / 2) || (pos.Y < 0) || (pos.Y > 100))
+            if ((Position.X < - (width / 2)) || (Position.X > width / 2) || (Position.Z < - (height / 2)) || (Position.Z > height / 2) || (Position.Y < 0) || (Position.Y > 100))
             {
                 Alive = false;
             }
-            pos += look * speed;
+            Position += Look * speed;
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Line.DrawLine(pos, pos + look * 10, Color.Red);
+            Line.DrawLine(Position, Position + Look * 10, Color.Red);
         }
 
     }

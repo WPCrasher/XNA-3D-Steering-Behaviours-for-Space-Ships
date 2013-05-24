@@ -27,12 +27,12 @@ namespace Steering
 
         public bool isInside(Vector3 point)
         {
-            return ((point - pos).Length() < Radius);
+            return ((point - Position).Length() < Radius);
         }
 
         public bool isInside(Vector3 point, float border)
         {
-            return ((point - pos).Length() < Radius + border);
+            return ((point - Position).Length() < Radius + border);
         }
     }
 }

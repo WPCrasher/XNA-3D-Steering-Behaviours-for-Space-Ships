@@ -24,11 +24,11 @@ namespace Steering
         public override void Draw(GameTime gameTime)
         {
             /*
-            SpriteFont spriteFont = XNAGame.Instance().SpriteFont;
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Pos: " + pos.X + " " + pos.Y + " " + pos.Z, new Vector2(500, 10), Color.White);
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Look: " + look.X + " " + look.Y + " " + look.Z, new Vector2(500, 30), Color.White);
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Right: " + right.X + " " + right.Y + " " + right.Z, new Vector2(500, 50), Color.White);
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Up: " + up.X + " " + up.Y + " " + up.Z, new Vector2(500, 70), Color.White);
+            SpriteFont spriteFont = XNAGame.Instance.SpriteFont;
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Pos: " + pos.X + " " + pos.Y + " " + pos.Z, new Vector2(500, 10), Color.White);
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Look: " + look.X + " " + look.Y + " " + look.Z, new Vector2(500, 30), Color.White);
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Right: " + right.X + " " + right.Y + " " + right.Z, new Vector2(500, 50), Color.White);
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Up: " + up.X + " " + up.Y + " " + up.Z, new Vector2(500, 70), Color.White);
              */
         }
 
@@ -40,8 +40,8 @@ namespace Steering
         }
         public Camera()
         {
-            pos = new Vector3(0.0f, 30.0f, 50.0f);
-            look = new Vector3(0.0f, 0.0f, -1.0f);
+            Position = new Vector3(0.0f, 30.0f, 50.0f);
+            Look = new Vector3(0.0f, 0.0f, -1.0f);
         }
 
         public override void Update(GameTime gameTime)
@@ -65,21 +65,6 @@ namespace Steering
             pitch(-(float)deltaY / 100.0f);
             Mouse.SetPosition(midX, midY);
 
-            if (mouseState.LeftButton == ButtonState.Pressed)
-            {
-                Vector3 newTargetPos= pos + (look * 100.0f);
-                //newTargetPos.Y = 8;
-                XNAGame.Instance().Leader.targetPos = newTargetPos;
-                
-            }
-
-            if (mouseState.RightButton == ButtonState.Pressed)
-            {
-                Vector3 newTargetPos = pos;
-                XNAGame.Instance().Leader.targetPos = newTargetPos;
-
-            }
-            
 
             if (keyboardState.IsKeyDown(Keys.LeftShift))
             {
@@ -105,8 +90,8 @@ namespace Steering
             {
                 strafe(timeDelta);
             }          
-            view = Matrix.CreateLookAt(pos, pos + look, up);
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), XNAGame.Instance().GraphicsDeviceManager.GraphicsDevice.Viewport.AspectRatio, 1.0f, 10000.0f);
+            view = Matrix.CreateLookAt(Position, Position + Look, Up);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), XNAGame.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.AspectRatio, 1.0f, 10000.0f);
             
         }
 

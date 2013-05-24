@@ -72,7 +72,7 @@ namespace Steering
 
         public void Partition()
         {
-            List<Entity> entities = XNAGame.Instance().Children;
+            List<Entity> entities = XNAGame.Instance.Children;
             foreach (Cell cell in cells)
             {
                 cell.Entities.Clear();
@@ -81,7 +81,7 @@ namespace Steering
             {
                 if (entity is Fighter)
                 {
-                    int cell = FindCell(entity.pos);
+                    int cell = FindCell(entity.Position);
                     if (cell != -1)
                     {
                         cells[cell].Entities.Add(entity);

@@ -17,7 +17,17 @@ namespace Steering
 {
 	public class Utilities
 	{
-		static Random rng = new Random();
+
+        public static Vector3 RandomPosition(float range)
+        {
+            Vector3 pos = new Vector3();
+            pos.X = (RNG.Next() % range) - (range / 2);
+            pos.Y = (RNG.Next() % range) - (range / 2);
+            pos.Z = (RNG.Next() % range) - (range / 2);
+            return pos;
+        }
+
+        public static Random RNG = new Random(DateTime.Now.Millisecond);
 
 		public static float Interpolate(float alpha, float x0, float x1)
 		{
@@ -35,7 +45,7 @@ namespace Steering
 		// Returns a float randomly distributed between 0 and 1
 		public static float Random()
 		{
-			return (float)rng.NextDouble();
+			return (float)RNG.NextDouble();
 		}
 
 		// Returns a float randomly distributed between lowerBound and upperBound

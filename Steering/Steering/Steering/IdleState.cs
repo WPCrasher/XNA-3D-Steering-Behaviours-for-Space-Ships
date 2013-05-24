@@ -25,7 +25,7 @@ namespace Steering
             AIFighter fighter = (AIFighter) Entity;
             if (initialPos == Vector3.Zero)
             {
-                initialPos = fighter.pos;
+                initialPos = fighter.Position;
             }
             fighter.Path.Waypoints.Add(initialPos);
             fighter.Path.Waypoints.Add(initialPos + new Vector3(-50, 0, -80));
@@ -49,8 +49,8 @@ namespace Steering
         {
             float range = 30.0f;           
             // Can I see the leader?
-            Fighter leader = XNAGame.Instance().Leader;
-            if ((leader.pos - Entity.pos).Length() < range)
+            Fighter leader = XNAGame.Instance.Leader;
+            if ((leader.Position - Entity.Position).Length() < range)
             {
                 // Is the leader inside my FOV
                 AIFighter fighter = (AIFighter)Entity;

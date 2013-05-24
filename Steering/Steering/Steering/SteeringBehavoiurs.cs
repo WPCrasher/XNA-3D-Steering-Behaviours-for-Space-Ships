@@ -31,12 +31,12 @@ namespace Steering
         {
             tagged.Clear();
 
-            foreach (Entity entity in XNAGame.Instance().Children)
+            foreach (Entity entity in XNAGame.Instance.Children)
             {
                 if ((entity != fighter) && (entity is Fighter))
                 {
                     Fighter neighbour = (Fighter)entity;
-                    if ((fighter.pos - neighbour.pos).Length() < inRange)
+                    if ((fighter.Position - neighbour.Position).Length() < inRange)
                     {
                         tagged.Add(neighbour);                
                     }
@@ -48,10 +48,10 @@ namespace Steering
         private int TagNeighboursPartitioned(float inRange)
         {           
             BoundingBox expanded = new BoundingBox();
-            expanded.Min = new Vector3(fighter.pos.X - inRange, fighter.pos.Y - inRange, fighter.pos.Z - inRange);
-            expanded.Max = new Vector3(fighter.pos.X + inRange, fighter.pos.Y + inRange, fighter.pos.Z + inRange);
+            expanded.Min = new Vector3(fighter.Position.X - inRange, fighter.Position.Y - inRange, fighter.Position.Z - inRange);
+            expanded.Max = new Vector3(fighter.Position.X + inRange, fighter.Position.Y + inRange, fighter.Position.Z + inRange);
 
-            List<Cell> cells = XNAGame.Instance().Space.Cells;
+            List<Cell> cells = XNAGame.Instance.Space.Cells;
             tagged.Clear();
             float range = inRange * inRange;
             foreach (Cell cell in cells)
@@ -64,7 +64,7 @@ namespace Steering
                         if (entity != fighter)
                         {
                             Fighter neighbour = (Fighter)entity;
-                            if ((fighter.pos - neighbour.pos).LengthSquared() < range)
+                            if ((fighter.Position - neighbour.Position).LengthSquared() < range)
                             {
                                 tagged.Add(neighbour);
                             }
@@ -77,7 +77,7 @@ namespace Steering
 
         public Vector3 cohesion()
         {
-            List<Entity> entities = XNAGame.Instance().Children;
+            List<Entity> entities = XNAGame.Instance.Children;
             Vector3 steeringForce = Vector3.Zero;
             Vector3 centreOfMass = Vector3.Zero;
             int taggedCount = 0;
@@ -85,7 +85,7 @@ namespace Steering
             {
                 if (entity != fighter)
                 {
-                    centreOfMass += entity.pos;
+                    centreOfMass += entity.Position;
                     taggedCount++;
                 }
             }
@@ -107,14 +107,14 @@ namespace Steering
 
         public Vector3 alignment()
         {
-            List<Entity> entities = XNAGame.Instance().Children;
+            List<Entity> entities = XNAGame.Instance.Children;
             Vector3 steeringForce = Vector3.Zero;
             int taggedCount = 0;
             foreach (Entity entity in tagged)
             {
                 if (entity != fighter)
                 {
-                    steeringForce += entity.look;
+                    steeringForce += entity.Look;
                     taggedCount++;
                 }
             }
@@ -122,7 +122,7 @@ namespace Steering
             if (taggedCount > 0)
             {
                 steeringForce /= (float) taggedCount;
-                steeringForce -= fighter.look;
+                steeringForce -= fighter.Look;
             }
             return steeringForce;
                 
@@ -130,11 +130,11 @@ namespace Steering
 
         public Vector3 sphereConstrain(float radius)
         {
-            float distance = fighter.pos.Length();
+            float distance = fighter.Position.Length();
             Vector3 steeringForce = Vector3.Zero;
             if (distance > radius)
             {
-                steeringForce = Vector3.Normalize(fighter.pos) * (radius - distance);
+                steeringForce = Vector3.Normalize(fighter.Position) * (radius - distance);
             }
             return steeringForce;
         }
@@ -148,7 +148,7 @@ namespace Steering
                 Entity entity = tagged[i];
                 if (entity != null)
                 {
-                    Vector3 toEntity = fighter.pos - entity.pos;
+                    Vector3 toEntity = fighter.Position - entity.Position;
                     steeringForce += (Vector3.Normalize(toEntity) / toEntity.Length());
                 }
             }
@@ -205,8 +205,8 @@ namespace Steering
             wanderSphere = new Sphere(1);
             wanderSphere.ShouldDraw = false;
             sphere.ShouldDraw = false;
-            XNAGame.Instance().Children.Add(sphere);
-            XNAGame.Instance().Children.Add(wanderSphere);
+            XNAGame.Instance.Children.Add(sphere);
+            XNAGame.Instance.Children.Add(wanderSphere);
 
             wanderTarget = new Vector3(RandomClamped(), RandomClamped(), RandomClamped());
             wanderTarget.Normalize();
@@ -216,11 +216,11 @@ namespace Steering
 
         Vector3  evade()
         {
-            float dist = (fighter.Target.pos - fighter.pos).Length();
+            float dist = (fighter.Target.Position - fighter.Position).Length();
             float lookAhead = (dist / fighter.maxSpeed);
 
-            Vector3 target = fighter.Target.pos + (lookAhead * fighter.Target.velocity);
-            sphere.pos = target;          
+            Vector3 target = fighter.Target.Position + (lookAhead * fighter.Target.velocity);
+            sphere.Position = target;          
             return flee(target);
         }
 
@@ -238,13 +238,13 @@ namespace Steering
             }
             // Matt Bucklands Obstacle avoidance
             // First tag obstacles in range
-            foreach (Entity child in XNAGame.Instance().Children)
+            foreach (Entity child in XNAGame.Instance.Children)
             {
                 if (child is Obstacle)
                 {
                     Obstacle obstacle = (Obstacle)child;
 
-                    Vector3 toCentre = fighter.pos - obstacle.pos;
+                    Vector3 toCentre = fighter.Position - obstacle.Position;
                     float dist = toCentre.Length();
                     if (dist < boxLength)
                     {
@@ -261,7 +261,7 @@ namespace Steering
             Matrix localTransform = Matrix.Invert(fighter.worldTransform);
             foreach (Obstacle o in tagged)
             {
-                Vector3 localPos = Vector3.Transform(o.pos, localTransform);
+                Vector3 localPos = Vector3.Transform(o.Position, localTransform);
                 //Vector3 localPos = o.pos - fighter.pos;
 
 		        // If the local position has a positive Z value then it must lay
@@ -277,7 +277,7 @@ namespace Steering
 				        // Now to do a ray/sphere intersection test. The center of the				
 				        // Create a temp Entity to hold the sphere in local space
                         Sphere tempSphere = new Sphere(expandedRadius);
-				        tempSphere.pos = localPos;				            
+				        tempSphere.Position = localPos;				            
 
 				        // Create a ray
 				        Ray ray = new Ray();
@@ -334,7 +334,7 @@ namespace Steering
                         force.Y = -force.Y;
                     }*/
                     
-                    Line.DrawLine(fighter.pos, fighter.pos + fighter.look * boxLength, Color.BlueViolet);
+                    Line.DrawLine(fighter.Position, fighter.Position + fighter.Look * boxLength, Color.BlueViolet);
 			        //apply a braking force proportional to the obstacle's distance from
 			        //the vehicle.
 			        const float brakingWeight = 40.0f;
@@ -404,7 +404,7 @@ namespace Steering
             //target = offset + fighter.Leader.pos;
             target = Vector3.Transform(offset, fighter.Leader.worldTransform);
 
-            float dist = (target - fighter.pos).Length();     
+            float dist = (target - fighter.Position).Length();     
       
             float lookAhead = (dist / fighter.maxSpeed);
 
@@ -416,7 +416,7 @@ namespace Steering
 
         Vector3 pursue()
         {
-            float dist = (fighter.Target.pos - fighter.pos).Length();
+            float dist = (fighter.Target.Position - fighter.Position).Length();
 
             if (dist < 1.0f)
             {
@@ -424,8 +424,8 @@ namespace Steering
             }
             float lookAhead = (dist / fighter.maxSpeed);
 
-            Vector3 target = fighter.Target.pos + (lookAhead * fighter.Target.velocity);
-            sphere.pos = target;          
+            Vector3 target = fighter.Target.Position + (lookAhead * fighter.Target.velocity);
+            sphere.Position = target;          
             return seek(target);
         }
 
@@ -433,7 +433,7 @@ namespace Steering
         {
             float panicDistance = 100.0f;
             Vector3 desiredVelocity;
-            desiredVelocity = fighter.pos - targetPos;
+            desiredVelocity = fighter.Position - targetPos;
             if (desiredVelocity.Length() > panicDistance)
             {
                 return Vector3.Zero;
@@ -441,13 +441,13 @@ namespace Steering
             desiredVelocity.Normalize();
             desiredVelocity *= fighter.maxSpeed;
 
-            sphere.pos = fighter.targetPos;
+            sphere.Position = fighter.TargetPos;
             return (desiredVelocity - fighter.velocity);
         }
 
         Vector3 randomWalk()
         {
-            float dist = (fighter.pos - randomWalkTarget).Length();
+            float dist = (fighter.Position - randomWalkTarget).Length();
             if (dist < 50)
             {
                 randomWalkTarget.X = RandomClamped() * Params.GetFloat("world_range");
@@ -461,11 +461,11 @@ namespace Steering
         {           
             Vector3 desiredVelocity;
 
-            desiredVelocity = targetPos - fighter.pos;
+            desiredVelocity = targetPos - fighter.Position;
             desiredVelocity.Normalize();
             desiredVelocity *= fighter.maxSpeed;
 
-            sphere.pos = fighter.targetPos;
+            sphere.Position = fighter.TargetPos;
             //sphere.ShouldDraw = true;
             return (desiredVelocity - fighter.velocity);
         }
@@ -488,12 +488,12 @@ namespace Steering
 
             Vector3 cent = Vector3.Transform(fighter.basis * Params.GetFloat("wander_distance"), fighter.worldTransform);
             sphere.Radius = Params.GetFloat("wander_radius");
-            sphere.pos = cent;
+            sphere.Position = cent;
             wanderSphere.Radius = 1.0f;
-            wanderSphere.pos = worldTarget;
+            wanderSphere.Position = worldTarget;
             wanderSphere.ShouldDraw = false;
             sphere.ShouldDraw = false;
-            return (worldTarget - fighter.pos);
+            return (worldTarget - fighter.Position);
             
         }
 
@@ -557,7 +557,7 @@ namespace Steering
 
         public Vector3 arrive(Vector3 target)
         {
-            Vector3 toTarget = target - fighter.pos;
+            Vector3 toTarget = target - fighter.Position;
             
             float slowingDistance = 8.0f;
             float distance = toTarget.Length();
@@ -569,7 +569,7 @@ namespace Steering
             float ramped = fighter.maxSpeed * (distance / (slowingDistance * DecelerationTweaker));
 
             float clamped = Math.Min(ramped, fighter.maxSpeed);
-            sphere.pos = fighter.targetPos;
+            sphere.Position = fighter.TargetPos;
             Vector3 desired = clamped * (toTarget / distance);
 
             checkNaN(desired);
@@ -665,7 +665,7 @@ namespace Steering
             
             if (isOn(behaviour_type.seek))
             {
-                force = seek(fighter.targetPos) * Params.GetWeight("seek_weight");
+                force = seek(fighter.TargetPos) * Params.GetWeight("seek_weight");
                 if (!accumulateForce(ref steeringForce, force))
                 {
                     return steeringForce;
@@ -674,7 +674,7 @@ namespace Steering
             
             if (isOn(behaviour_type.arrive))
             {
-                force = arrive(fighter.targetPos) * Params.GetWeight("arrive_weight");
+                force = arrive(fighter.TargetPos) * Params.GetWeight("arrive_weight");
                 if (!accumulateForce(ref steeringForce, force))
                 {
                     return steeringForce;
@@ -732,7 +732,7 @@ namespace Steering
         private Vector3 followPath()
         {
             float epsilon = 5.0f;
-            float dist = (fighter.pos - fighter.Path.NextWaypoint()).Length();
+            float dist = (fighter.Position - fighter.Path.NextWaypoint()).Length();
             if (dist < epsilon)
             {
                 fighter.Path.AdvanceToNext();

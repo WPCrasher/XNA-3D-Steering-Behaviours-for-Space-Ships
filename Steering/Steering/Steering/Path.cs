@@ -56,11 +56,11 @@ namespace Steering
                 draw = value;
                 if (value == true)
                 {
-                    XNAGame.Instance().Children.Add(this);
+                    XNAGame.Instance.Children.Add(this);
                 }
                 else
                 {
-                    XNAGame.Instance().Children.Remove(this);
+                    XNAGame.Instance.Children.Remove(this);
                 }
             }
         }

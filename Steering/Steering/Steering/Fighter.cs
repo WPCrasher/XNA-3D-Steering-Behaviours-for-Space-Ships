@@ -17,7 +17,7 @@ namespace Steering
    
     public class Fighter:Entity
     {
-        public Vector3 targetPos = Vector3.Zero;
+        public Vector3 TargetPos = Vector3.Zero;
         private Fighter target = null;
         public Vector3 offset;
         private Path path = new Path();
@@ -88,10 +88,10 @@ namespace Steering
         public Fighter()
         {
             worldTransform = Matrix.Identity;
-            pos = new Vector3(0, 10, 0);
-            look = new Vector3(0, 0, -1);
-            right = new Vector3(1, 0, 0);
-            up = new Vector3(0, 1, 0);
+            Position = new Vector3(0, 10, 0);
+            Look = new Vector3(0, 0, -1);
+            Right = new Vector3(1, 0, 0);
+            Up = new Vector3(0, 1, 0);
             globalUp = new Vector3(0, 1, 0);
             steeringBehaviours = new SteeringBehaviours(this);
             drawAxis = false;
@@ -101,8 +101,8 @@ namespace Steering
 
         public override void LoadContent() 
         {            
-            model = XNAGame.Instance().Content.Load<Model>(modelName);
-            worldTransform = Matrix.CreateWorld(pos, look, up);
+            model = XNAGame.Instance.Content.Load<Model>(modelName);
+            worldTransform = Matrix.CreateWorld(Position, Look, Up);
 
             foreach (ModelMesh mesh in model.Meshes)
             {
@@ -139,7 +139,7 @@ namespace Steering
                 velocity.Normalize();
                 velocity *= maxSpeed;
             }
-            pos += velocity * timeDelta;            
+            Position += velocity * timeDelta;            
 
             // the length of this global-upward-pointing vector controls the vehicle's
             // tendency to right itself as it is rolled over from turning acceleration
@@ -151,52 +151,52 @@ namespace Steering
             Vector3 bankUp = accelUp + globalUp;
             // blend bankUp into vehicle's UP basis vector
             smoothRate = timeDelta * 3;
-            Vector3 tempUp = up;
+            Vector3 tempUp = Up;
             Utilities.BlendIntoAccumulator(smoothRate, bankUp, ref tempUp);
-            up = tempUp;
-            up.Normalize();
+            Up = tempUp;
+            Up.Normalize();
 
             if (speed > 0.0001f)
             {
-                look = velocity;
-                look.Normalize();
-                if (look.Equals(right))
+                Look = velocity;
+                Look.Normalize();
+                if (Look.Equals(Right))
                 {
-                    right = Vector3.Right;
+                    Right = Vector3.Right;
                 }
                 else
                 {
-                    right = Vector3.Cross(look, up);
+                    Right = Vector3.Cross(Look, Up);
 
-                    right.Normalize();
+                    Right.Normalize();
 
-                    SteeringBehaviours.checkNaN(ref right, Vector3.Right);
-                    up = Vector3.Cross(right, look);
-                    up.Normalize();
-                    SteeringBehaviours.checkNaN(ref up, Vector3.Up);
+                    SteeringBehaviours.checkNaN(ref Right, Vector3.Right);
+                    Up = Vector3.Cross(Right, Look);
+                    Up.Normalize();
+                    SteeringBehaviours.checkNaN(ref Up, Vector3.Up);
                 }
                 // Apply damping
                 velocity *= 0.99f;
             }
             
-            if (look != basis)
+            if (Look != basis)
             {
                 
-                float angle = (float)Math.Acos(Vector3.Dot(basis, look));                
-                Vector3 axis = Vector3.Cross(basis, look);
+                float angle = (float)Math.Acos(Vector3.Dot(basis, Look));                
+                Vector3 axis = Vector3.Cross(basis, Look);
 
                 quaternion = Quaternion.CreateFromAxisAngle(axis, angle);
                 quaternion.Normalize();
                 
-                worldTransform.Up = up;
-                worldTransform.Forward = look;
-                worldTransform.Right = right;
-                worldTransform = Matrix.CreateWorld(pos, look, up);
+                worldTransform.Up = Up;
+                worldTransform.Forward = Look;
+                worldTransform.Right = Right;
+                worldTransform = Matrix.CreateWorld(Position, Look, Up);
                 checkNan(worldTransform);
             }
             else
             {
-                worldTransform = Matrix.CreateTranslation(pos);
+                worldTransform = Matrix.CreateTranslation(Position);
             }
             drawAxis = false;
         }
@@ -212,12 +212,12 @@ namespace Steering
         public override void Draw(GameTime gameTime)
         {
             /*
-            SpriteFont spriteFont = XNAGame.Instance().SpriteFont;
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Pos: " + pos.X + " " + pos.Y + " " + pos.Z, new Vector2(10, 10), Color.White);
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Look: " + look.X + " " + look.Y + " " + look.Z, new Vector2(10, 30), Color.White);
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Right: " + right.X + " " + right.Y + " " + right.Z, new Vector2(10, 50), Color.White);
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Up: " + up.X + " " + up.Y + " " + up.Z, new Vector2(10, 70), Color.White);
-            XNAGame.Instance().SpriteBatch.DrawString(spriteFont, "Roll: " + roll, new Vector2(10, 110), Color.White);
+            SpriteFont spriteFont = XNAGame.Instance.SpriteFont;
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Pos: " + pos.X + " " + pos.Y + " " + pos.Z, new Vector2(10, 10), Color.White);
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Look: " + look.X + " " + look.Y + " " + look.Z, new Vector2(10, 30), Color.White);
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Right: " + right.X + " " + right.Y + " " + right.Z, new Vector2(10, 50), Color.White);
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Up: " + up.X + " " + up.Y + " " + up.Z, new Vector2(10, 70), Color.White);
+            XNAGame.Instance.SpriteBatch.DrawString(spriteFont, "Roll: " + roll, new Vector2(10, 110), Color.White);
             */
             // Draw the mesh
             if (model != null)
@@ -229,8 +229,8 @@ namespace Steering
                         effect.EnableDefaultLighting();
                         effect.PreferPerPixelLighting = true;
                         effect.World = worldTransform;
-                        effect.Projection = XNAGame.Instance().Camera.getProjection();
-                        effect.View = XNAGame.Instance().Camera.getView();
+                        effect.Projection = XNAGame.Instance.Camera.getProjection();
+                        effect.View = XNAGame.Instance.Camera.getView();
                     }
                     mesh.Draw();
                 }
@@ -238,16 +238,16 @@ namespace Steering
 
             if (drawAxis)
             {
-                Line.DrawLine(pos, pos + (look * 10), Color.White);
-                Line.DrawLine(pos, pos + (up * 10), Color.Red);
-                Line.DrawLine(pos, pos + (right * 10), Color.Blue);                                
+                Line.DrawLine(Position, Position + (Look * 10), Color.White);
+                Line.DrawLine(Position, Position + (Up * 10), Color.Red);
+                Line.DrawLine(Position, Position + (Right * 10), Color.Blue);                                
             }
 
             if (drawFeelers)
             {
                 foreach (Vector3 feeler in feelers)
                 {
-                    Line.DrawLine(pos, feeler, Color.Chartreuse);                    
+                    Line.DrawLine(Position, feeler, Color.Chartreuse);                    
                 }
             }
         }

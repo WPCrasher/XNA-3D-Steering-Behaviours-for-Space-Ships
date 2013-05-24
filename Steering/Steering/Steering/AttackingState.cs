@@ -31,7 +31,7 @@ namespace Steering
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.offset_pursuit);
             fighter.SteeringBehaviours.turnOn(SteeringBehaviours.behaviour_type.obstacle_avoidance);
             fighter.offset = new Vector3(0, 0, 5);
-            fighter.Leader = XNAGame.Instance().Leader;
+            fighter.Leader = XNAGame.Instance.Leader;
         }
 
         public override void Exit()
@@ -45,8 +45,8 @@ namespace Steering
             timeShot += timeDelta;
             float fov = MathHelper.PiOver4;
             // Can I see the leader?
-            Fighter leader = XNAGame.Instance().Leader;
-            if ((leader.pos - Entity.pos).Length() > range)
+            Fighter leader = XNAGame.Instance.Leader;
+            if ((leader.Position - Entity.Position).Length() > range)
             {
                 // Is the leader inside my FOV
                 AIFighter fighter = (AIFighter)Entity;
@@ -55,17 +55,17 @@ namespace Steering
             else
             {
                 float angle;
-                Vector3 toEnemy = (leader.pos - Entity.pos);
+                Vector3 toEnemy = (leader.Position - Entity.Position);
                 toEnemy.Normalize();
-                angle = (float) Math.Acos(Vector3.Dot(toEnemy, Entity.look));
+                angle = (float) Math.Acos(Vector3.Dot(toEnemy, Entity.Look));
                 if (angle < fov)
                 {
                     if (timeShot > 0.25f)
                     {
                         Lazer lazer = new Lazer();
-                        lazer.pos = Entity.pos;
-                        lazer.look = Entity.look;
-                        XNAGame.Instance().Children.Add(lazer);
+                        lazer.Position = Entity.Position;
+                        lazer.Look = Entity.Look;
+                        XNAGame.Instance.Children.Add(lazer);
                         timeShot = 0.0f;
                     }
                 }
