@@ -770,7 +770,5 @@ namespace Steering
             }
             return true;
         }
-
-        
     }
 }
